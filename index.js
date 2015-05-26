@@ -18,8 +18,10 @@ Zip.prototype.read = function read(readTree){
 
   return readTree(this.inputTree).then(function (srcDir){
     // var args = ['tar', 'chz', '-C', srcDir, '-f', zipFilename, '.'].join(' ');
-    var args = ['zip', '-r', zipFilename, srcDir].join(' ');
-    return exec(args).then(function(){
+    var args = ['zip', '-r', zipFilename, '.'].join(' ');
+    return exec(args, {
+      cwd: srcDir
+    }).then(function(){
       return destDir;
     });
   });
