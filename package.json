@@ -1,19 +1,22 @@
 {
-  "name": "broccoli-zip",
+  "name": "broccoli-zip-js",
   "version": "1.0.1",
-  "description": "a broccoli plugin for turning a tree into a zip archive",
+  "description": "a broccoli plugin for turning a tree into a zip archive - no executable required",
   "main": "index.js",
   "scripts": {
     "test": "mocha tests/"
   },
-  "author": "Vasiliy Marchuk <vasman@hidev.it>",
+  "author": "Benjamin Vellacott <bmvellacott@gmail.com>",
   "keywords": [
-    "broccoli-plugin"
+    "broccoli-plugin",
+    "jszip",
+    "zip",
+    "caching"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vasman/broccoli-zip"
+    "url": "https://github.com/bvellacott/broccoli-zip"
   },
   "dependencies": {
     "archiver": "^1.2.0",
