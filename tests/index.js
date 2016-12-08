@@ -35,7 +35,7 @@ describe('broccoli-zip', function(){
 
   });
 
-  it('the zip contains the file from input the input tree');
+  // it('the zip contains the file from input the input tree');
 
   it('emits an <name>.zip file if options.name is set', function(){
     var inputPath = path.join(fixturePath);
