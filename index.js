@@ -1,5 +1,6 @@
 const Plugin = require('broccoli-caching-writer');
-const JSZip = require('jszip');
+// const JSZip = require('jszip');
+const archiver = require('archiver');
 const fs = require('fs');
 const path = require('path');
 
@@ -24,16 +25,17 @@ function Zip(inputNode, options) {
 
 Zip.prototype.build = function() {
   var options = this.options;
-  return new Promise((resolve, reject) => {
-    const inputPath = path.join(this.inputPaths[0]);
-    const outputPath = path.join(this.outputPath, options.name);
+  const inputPath = path.join(this.inputPaths[0]);
+  const outputPath = path.join(this.outputPath, options.name);
 
-    new JSZip()
-    .folder(inputPath)
-    .generateNodeStream({ type: 'nodebuffer', streamFiles: true })
-    .pipe(fs.createWriteStream(outputPath))
-    .on('finish', () => { resolve(); })
-    .on('error', () => { reject(); });
+  return new Promise((resolve, reject) => {
+    var zip = archiver('zip', { store: true });
+    var out = fs.createWriteStream(outputPath);
+    out.on('close', resolve);
+    zip.on('error', reject);
+    zip.pipe(out);
+    zip.directory(inputPath, '');
+    zip.finalize();
   });
 };
 
