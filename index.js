@@ -1,5 +1,4 @@
 const Plugin = require('broccoli-caching-writer');
-// const JSZip = require('jszip');
 const archiver = require('archiver');
 const fs = require('fs');
 const path = require('path');
@@ -29,7 +28,6 @@ Zip.prototype.build = function() {
   const outputPath = path.join(this.outputPath, options.name);
 
   return new Promise((resolve, reject) => {
-    console.log('haloooooo!!!');
     var zip = archiver('zip', { zlib: { level: 9 }});
     var out = fs.createWriteStream(outputPath);
     out.on('close', resolve);
