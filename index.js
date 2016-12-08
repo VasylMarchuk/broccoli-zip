@@ -29,7 +29,8 @@ Zip.prototype.build = function() {
   const outputPath = path.join(this.outputPath, options.name);
 
   return new Promise((resolve, reject) => {
-    var zip = archiver('zip', { store: true });
+    console.log('haloooooo!!!');
+    var zip = archiver('zip', { zlib: { level: 9 }});
     var out = fs.createWriteStream(outputPath);
     out.on('close', resolve);
     zip.on('error', reject);
