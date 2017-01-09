@@ -1,6 +1,6 @@
 {
   "name": "broccoli-zip-js",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "a broccoli plugin for turning a tree into a zip archive - no executable required",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,8 @@
     "broccoli-plugin",
     "jszip",
     "zip",
-    "caching"
+    "caching",
+    "archiver"
   ],
   "license": "MIT",
   "repository": {
@@ -19,14 +20,14 @@
     "url": "https://github.com/bvellacott/broccoli-zip"
   },
   "dependencies": {
-    "archiver": "^1.2.0",
-    "broccoli-caching-writer": "^3.0.3"
+    "archiver": "1.2.0",
+    "broccoli-caching-writer": "3.0.3"
   },
   "devDependencies": {
-    "broccoli": "^0.13.3",
-    "expect.js": "^0.3.1",
-    "mocha": "^2.0.1",
+    "broccoli": "0.13.3",
+    "expect.js": "0.3.1",
+    "mocha": "2.0.1",
     "mocha-jshint": "0.0.9",
-    "walk-sync": "^0.1.3"
+    "walk-sync": "0.1.3"
   }
 }
