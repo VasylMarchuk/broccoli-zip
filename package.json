@@ -1,6 +1,6 @@
 {
   "name": "broccoli-zip-js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "a broccoli plugin for turning a tree into a zip archive - no executable required",
   "main": "index.js",
   "scripts": {
