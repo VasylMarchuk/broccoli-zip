@@ -1,34 +1,41 @@
-var RSVP = require('rsvp');
-var quickTemp = require('quick-temp');
-var exec = RSVP.denodeify(require('child_process').exec);
+const Plugin = require('broccoli-caching-writer');
+const archiver = require('archiver');
+const fs = require('fs');
+const path = require('path');
 
-function Zip(inputTree, archiveName){
+// Create a subclass Zip derived from Plugin
+Zip.prototype = Object.create(Plugin.prototype);
+Zip.prototype.constructor = Zip;
+function Zip(inputNode, options) {
+  // check for mandatory options
+  options = options || {};
+  options.name = options.name || 'archive';
+  options.cacheInclude = [ /.*/ ];
   if (!(this instanceof Zip)) {
-    return new Zip(inputTree, archiveName);
+    return new Zip(inputNode, options);
   }
-  this.inputTree = inputTree;
-  this.archiveName = archiveName || 'archive';
+  this.options = options;
+
+  Plugin.call(this, [inputNode], {
+    annotation: options.name,
+    persistentOutput: true
+  });
 }
 
-Zip.prototype.read = function read(readTree){
-  var destDir = quickTemp.makeOrRemake(this, 'tmpDestDir');
+Zip.prototype.build = function() {
+  var options = this.options;
+  const inputPath = path.join(this.inputPaths[0]);
+  const outputPath = path.join(this.outputPath, options.name);
 
-  var outName = this.archiveName;
-  var zipFilename = [destDir, '/', outName, '.zip'].join('');
-
-  return readTree(this.inputTree).then(function (srcDir){
-    // var args = ['tar', 'chz', '-C', srcDir, '-f', zipFilename, '.'].join(' ');
-    var args = ['zip', '-r', zipFilename, '.'].join(' ');
-    return exec(args, {
-      cwd: srcDir
-    }).then(function(){
-      return destDir;
-    });
+  return new Promise((resolve, reject) => {
+    var zip = archiver('zip', { zlib: { level: 9 }});
+    var out = fs.createWriteStream(outputPath);
+    out.on('close', resolve);
+    zip.on('error', reject);
+    zip.pipe(out);
+    zip.directory(inputPath, '');
+    zip.finalize();
   });
-};
-
-Zip.prototype.cleanup = function cleanup(){
-  quickTemp.remove(this, 'tmpDestDir');
 };
 
 module.exports = Zip;

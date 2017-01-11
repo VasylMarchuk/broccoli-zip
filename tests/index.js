@@ -6,8 +6,6 @@ var walkSync = require('walk-sync');
 var broccoli = require('broccoli');
 var fs = require('fs');
 
-// require('mocha-jshint')();
-
 var Zip = require('..');
 
 describe('broccoli-zip', function(){
@@ -34,8 +32,6 @@ describe('broccoli-zip', function(){
       });
 
   });
-
-  it('the zip contains the file from input the input tree');
 
   it('emits an <name>.zip file if options.name is set', function(){
     var inputPath = path.join(fixturePath);

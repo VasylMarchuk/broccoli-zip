@@ -5,8 +5,6 @@ and creates a zip archive containing those files.
 
 ### Dependencies
 
-- `zip` executable, for now
-
 ### Usage
 
 You can supply an optional archive name. The default is `'archive.zip'`:
@@ -39,7 +37,3 @@ var archive = new Zip(cssFiles, 'css');
 
 module.exports = archive;
 ```
-
-### Credits
-
-Heavily based on the `broccoli-targz` plugin (https://github.com/trek/broccoli-tar) by Trek Glowacki (https://github.com/trek)
